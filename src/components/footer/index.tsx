@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome" 
-import {faFacebook, faInstagram, faWhatsapp} from "@fortawesome/free-brands-svg-icons"
+import {FontAwesomeIcon, FontAwesomeIconProps} from "@fortawesome/react-fontawesome" 
+import {faFacebook, faInstagram, faWhatsapp, faXTwitter, faYoutube} from "@fortawesome/free-brands-svg-icons"
 import {faCopyright} from "@fortawesome/free-regular-svg-icons"
 
 type MenuOption = {
@@ -9,10 +9,24 @@ type MenuOption = {
   url: string;
 }
 
+type BrandOption = {
+  icon: FontAwesomeIconProps,
+  url: string,
+  hover: string,
+}
+
 const menuOptions: MenuOption[] = [
   { text: "Início", url: "/" },
   { text: "Sobre", url: "/sobre" },
   { text: "Suporte", url: "/suporte" }
+]
+
+const brandsOptions = [
+  {icon: faInstagram, url: "https://www.instagram.com", hover: "hover:text-pink-600"},
+  {icon: faFacebook, url: "https://www.facebook.com", hover: "hover:text-blue-600"},
+  {icon: faWhatsapp, url: "https://www.whatsapp.com", hover: "hover:text-green-600"},
+  {icon: faYoutube, url: "https://www.youtube.com", hover: "hover:text-red-600"},
+  {icon: faXTwitter, url: "https://x.com", hover: "hover:text-yellow-600"}
 ]
 
 export default function Footer() {
@@ -31,9 +45,11 @@ export default function Footer() {
         </ul>
 
         <ul className="w-full flex justify-center items-center gap-6 space-x-6 mt-8 z-10">
-          <li className="z-10"><FontAwesomeIcon icon={faInstagram} className="w-6 lg:w-7 cursor-pointer text-zinc-50 hover:text-pink-600 transition-all"/></li>
-          <li className="z-10"><FontAwesomeIcon icon={faFacebook} className="w-6 lg:w-7 cursor-pointer hover:text-blue-600 transition-all"/></li>
-          <li className="z-10"><FontAwesomeIcon icon={faWhatsapp} className="w-6 lg:w-7 cursor-pointer hover:text-green-600 transition-all"/></li>
+          
+          {brandsOptions.map((option, index) =>(
+            <li key={index} className="z-10"><Link href={option.url}><FontAwesomeIcon icon={option.icon} className={`w-5 lg:w-7 cursor-pointer ${option.hover} transition-all`}/></Link></li>
+          ))}
+          
         </ul>
 
       </div>
